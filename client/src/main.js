@@ -1,29 +1,56 @@
 import { flightR24API } from "./apiRouter.js";
+import { departuresSearch } from "./components/departuresSearch.js";
+import { arrivalsSearch } from "./components/arrivalsSearch.js";
 import { departuresPanel } from "./components/departuresPanel.js";
-import { resultSearch } from "./components/searchResult.js";
+import { arrivalsPanel } from "./components/arrivalsPanel.js";
 
 const app = document.getElementById("app");
 app.innerHTML = "";
 
-//create departures panel
-const { panel, results } = departuresPanel(handleSearch);
-app.appendChild(panel);
+//create panels and where results will be stored
+const { panel: departuresPanel2, results: departureResults } = departuresPanel(
+  handleDeparturesSearch,
+);
+
+const { panel: arrivalsPanel2, results: arrivalsResults } =
+  arrivalsPanel(handleArrivalsSearch);
+//add panels to code
+app.appendChild(departuresPanel2);
+app.appendChild(arrivalsPanel2);
 
 //handle search
-async function handleSearch(airport) {
-  results.innerHTML = "Loading...";
-
+async function handleDeparturesSearch(airport) {
   try {
     //wait for response from api
     const data = await flightR24API(airport);
 
+    //extract flight data
     const flights = data.data || [];
+    //show all data from dataset in console log
     console.log(data.data[0]);
 
-    results.innerHTML = "";
-    results.appendChild(resultSearch(flights, airport));
+    departureResults.innerHTML = "";
+    //display departures
+    departureResults.appendChild(departuresSearch(flights, airport));
   } catch (err) {
-    console.error(err);
-    results.innerHTML = "Error loading departures";
+    departureResults.innerHTML = "Error loading departures";
+  }
+}
+
+async function handleArrivalsSearch(airport) {
+  try {
+    //wait for response from api
+    const data = await flightR24API(airport);
+
+    //extract flight data
+    const flights = data.data || [];
+    //show all data from dataset in console log
+    console.log(data.data[0]);
+
+    arrivalsResults.innerHTML = "";
+    //display arrivals
+    arrivalsResults.appendChild(arrivalsSearch(flights, airport));
+  } catch (err) {
+    arrivalsResults.innerHTML = "Error loading arrivals";
   }
 }

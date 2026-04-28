@@ -1,19 +1,19 @@
-export function resultSearch(flights, airport) {
+export function arrivalsSearch(flights, airport) {
   //container to hold results
   const container = document.createElement("div");
   container.id = "results";
 
   //filter only departures of airport
-  const departures = flights.filter((flight) => flight.orig_iata === airport);
+  const arrivals = flights.filter((flight) => flight.dest_iata === airport);
 
   //if no departures, return No...
-  if (!departures.length) {
-    container.textContent = "No departures found";
+  if (!arrivals.length) {
+    container.textContent = "No arrivals found";
     return container;
   }
 
   //limit to first 4 flights
-  departures.slice(0, 4).forEach((flight) => {
+  arrivals.slice(0, 4).forEach((flight) => {
     const card = document.createElement("div");
     //seperate cards for css
     card.className = "flight-card";
@@ -25,7 +25,7 @@ export function resultSearch(flights, airport) {
 
     //populate card with data
     //flight number
-    //from departure air to arrival airport
+    //from arrival air to arrival airport
     //eta time
     //n/a if data missing
     card.innerHTML = `
