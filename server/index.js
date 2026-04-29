@@ -50,26 +50,71 @@ function getFlightsByAirport(airport) {
   });
 }
 
-//handle front end requests - airport
-app.get("/flights", async (req, res) => {
-  const { airport } = req.query;
+//req data from api
+function getFlightsByCallsign(flight) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: "fr24api.flightradar24.com",
+      path: `/api/live/flight-positions/full?flights=${flight}`,
+      method: "GET",
+      headers: {
+        //api authentication and header
+        Authorization: `Bearer ${API_KEY}`,
+        "Accept-Version": "v1",
+      },
+    };
 
-  if (!airport) {
-    return res.status(400).json({ error: "Airport is required" });
-  }
+    const req = https.request(options, (res) => {
+      let data = "";
+      //collect data
+      res.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      res.on("end", () => {
+        try {
+          const json = JSON.parse(data);
+          resolve(json);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+
+    req.on("error", (err) => {
+      reject(err);
+    });
+    req.end();
+  });
+}
+
+//handle front end requests - airport and flights
+app.get("/flights", async (req, res) => {
+  const { airport, flight, operating_as } = req.query;
 
   try {
-    //fetch data from api
-    const data = await getFlightsByAirport(airport);
+    let data;
 
-    //send to frontend
-    res.json(data);
+    //find by flight number
+    if (flight) {
+      data = await getFlightsByCallsign(flight);
+      return res.json(data);
+    }
+
+    //airport
+    if (airport) {
+      data = await getFlightsByAirport(airport);
+      return res.json(data);
+    }
+
+    return res.status(400).json({
+      error: "Provide airport or flight",
+    });
   } catch (err) {
     console.error("Server error:", err);
     res.status(500).json({ error: "Failed to fetch flights" });
   }
 });
-
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

@@ -9,10 +9,23 @@
   padding: 15px;
   color: #00ff3c;
   font-family: monospace;
+  min-height: 480px;
+}
+
+#departures-panel h2 {
+  border: 1px solid #00ff3c;
+  padding: 2px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-left: 6%;
+  margin-top: 1px;
+  width: 250px;
+  font-size: 20px;
 }
 
 .flight-card {
   border-bottom: 1px solid #00ff3c;
   padding: 5px 0;
-  font-size: 14px;
+  font-size: 12px;
 }

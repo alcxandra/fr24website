@@ -1,0 +1,45 @@
+#number-panel {
+  position: fixed;
+  bottom: 20px;
+  left: 550px;
+  width: 650px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #00ff3c;
+  border-radius: 10px;
+  padding: 10px;
+  color: #00ff3c;
+  font-family: monospace;
+  min-height: 310px;
+  line-height: 15px;
+  word-spacing: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+
+#number-panel h2 {
+  border: 1px solid #00ff3c;
+  padding: 2px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-left: 25%;
+  line-height: 30px;
+  width: 300px;
+  font-size: 20px;
+}
+.number-card {
+  border: 1px solid #00ff3c;
+  border-radius: 8px;
+  padding: 2px;
+  font-size: 14px;
+  margin: 5px 0;
+  width: 400px;
+  height: 230px;
+  margin-left: 20%;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

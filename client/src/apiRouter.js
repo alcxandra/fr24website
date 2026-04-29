@@ -1,8 +1,14 @@
-export async function flightR24API(airport) {
-  const url = `http://localhost:5173/flights?airport=${airport}`;
+export async function flightAirportAPI(airport) {
+  const res = await fetch(`/flights?airport=${airport}`);
+  return res.json();
+}
 
-  const response = await fetch(url);
-  const data = await response.json();
+export async function flightCallSignAPI(flight) {
+  const res = await fetch(`/flights?flight=${flight}`);
+  return res.json();
+}
 
-  return data;
+export async function airportCountAPI(airport) {
+  const res = await fetch(`/flights?airport=${airport}`);
+  return res.json();
 }
