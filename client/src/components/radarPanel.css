@@ -1,0 +1,83 @@
+.chartRadar-wrap {
+  width: 520px;
+  height: 520px;
+  position: relative;
+  left: 315px;
+  top: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, #0f802a, #073613 70%);
+  border: 2px solid #00ff3c;
+}
+
+.chartRadar-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    #023c11,
+    transparent 1px,
+    transparent 40px
+  );
+  pointer-events: none;
+}
+
+#radar-panel {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 1190px;
+  height: 600px;
+
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid #00ff3c;
+  border-radius: 10px;
+
+  padding: 10px;
+  color: #00ff3c;
+  font-family: digital;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#radar-panel h2 {
+  border: 1px solid #00ff3c;
+  padding: 2px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-left: 35%;
+  line-height: 30px;
+  width: 300px;
+  font-size: 20px;
+}
+
+.radar-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 60, 0.9),
+    rgba(0, 255, 60, 0)
+  );
+  transform-origin: bottom center;
+  animation: lineRotate 3s linear infinite;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes lineRotate {
+  from {
+    transform: translate(-50%, -100%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -100%) rotate(360deg);
+  }
+}

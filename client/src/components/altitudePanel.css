@@ -1,0 +1,48 @@
+.chartAltitude-wrap {
+  height: 250px;
+  width: 550px;
+  position: relative;
+  background: rgba(5, 1, 1, 0.83);
+  left: 80px;
+}
+
+#altitude-panel {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  width: 650px;
+  height: 420px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid #00ff3c;
+  border-radius: 10px;
+  padding: 10px;
+  color: #00ff3c;
+  font-family: digital;
+  min-height: 310px;
+  line-height: 5px;
+  word-spacing: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+
+#altitude-panel h2 {
+  border: 1px solid #00ff3c;
+  padding: 2px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-left: 27%;
+  line-height: 30px;
+  width: 300px;
+  font-size: 20px;
+}
+
+.altitude-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-left: 22%;
+  margin-top: 5px;
+  max-width: 100px;
+}

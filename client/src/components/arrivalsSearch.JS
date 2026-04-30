@@ -31,9 +31,7 @@ export function arrivalsSearch(flights, airport) {
     card.innerHTML = `
       <p><strong>${flight.callsign || "N/A"}</strong></p>
       <p>${flight.orig_iata || "?"} → ${flight.dest_iata || "?"}</p>
-      <p>ETA: ${
-        flight.eta ? new Date(flight.eta).toLocaleTimeString() : "N/A"
-      }</p>
+      <p>ETA: ${new Date(flight.eta).toLocaleTimeString()}</p>
     `;
 
     container.appendChild(card);

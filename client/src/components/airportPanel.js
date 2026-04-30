@@ -16,7 +16,7 @@ export function airportPanel(onSearch) {
     onSearch,
   });
   const results = document.createElement("div");
-  results.id = "number-results";
+  results.id = "airport-results";
 
   //add features
   panel.appendChild(title);

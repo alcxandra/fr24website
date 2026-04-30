@@ -1,6 +1,6 @@
 import {
   flightAirportAPI,
-  flightCallSignAPI,
+  flightNumberAPI,
   airportCountAPI,
 } from "./apiRouter.js";
 import { departuresSearch } from "./components/departuresSearch.js";
@@ -11,6 +11,10 @@ import { numberPanel } from "./components/numberPanel.js";
 import { numberSearch } from "./components/numberSearch.js";
 import { airportPanel } from "./components/airportPanel.js";
 import { airportSearch } from "./components/airportSearch.js";
+import { altitudePanel } from "./components/altitudePanel.js";
+import { altitudeChart } from "./components/altitudeChart.js";
+import { radarChart } from "./components/radarChart.js";
+import { radarPanel } from "./components/radarPanel.js";
 
 const app = document.getElementById("app");
 app.innerHTML = "";
@@ -29,11 +33,19 @@ const { panel: numberPanel2, results: numberResults } =
 const { panel: airportPanel2, results: airportResults } =
   airportPanel(handleAirportSearch);
 
+const { panel: altitudePanel2, results: altitudeResults } =
+  altitudePanel(handleAltitudeSearch);
+
+//no need for results - no input from user
+const { panel: radarPanel2, chartContainer } = radarPanel();
+
 //add panels to code
 app.appendChild(departuresPanel2);
 app.appendChild(arrivalsPanel2);
 app.appendChild(numberPanel2);
 app.appendChild(airportPanel2);
+app.appendChild(altitudePanel2);
+app.appendChild(radarPanel2);
 
 //handle search
 async function handleDeparturesSearch(airport) {
@@ -76,7 +88,7 @@ async function handleArrivalsSearch(airport) {
 async function handleNumberSearch(flight) {
   try {
     //wait for response from api
-    const data = await flightCallSignAPI(flight);
+    const data = await flightNumberAPI(flight);
 
     console.log("API response:", data);
     //extract flight data
@@ -112,3 +124,33 @@ async function handleAirportSearch(airport) {
     airportResults.innerHTML = "Error loading flight count";
   }
 }
+
+async function handleAltitudeSearch(flights) {
+  //store results for chart
+  const results = [];
+
+  for (let flight of flights) {
+    //call api for inputted flights
+    //find info for those flights
+    const res = await flightNumberAPI(flight);
+    const data = res.data?.[0];
+
+    results.push({
+      code: flight,
+      altitude: data?.alt || 0,
+    });
+  }
+
+  altitudeResults.innerHTML = "";
+  altitudeResults.appendChild(altitudeChart(results));
+}
+
+//initialise radar
+//LHR as api needs airport
+async function pushRadar() {
+  const data = await flightAirportAPI("LHR");
+  const flights = data.data || [];
+
+  app.appendChild(radarChart(flights));
+}
+pushRadar();

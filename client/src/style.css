@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "digital";
+  src: url("./font/digital.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.chart-wrap {
+  width: 500px;
+  height: 50px;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  background-color: #020b05;
+  background-image:
+    linear-gradient(rgba(0, 255, 60, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 60, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  box-shadow: inset 0 0 100px rgba(0, 255, 60, 0.1);
+}

@@ -3,7 +3,7 @@ export async function flightAirportAPI(airport) {
   return res.json();
 }
 
-export async function flightCallSignAPI(flight) {
+export async function flightNumberAPI(flight) {
   const res = await fetch(`/flights?flight=${flight}`);
   return res.json();
 }
